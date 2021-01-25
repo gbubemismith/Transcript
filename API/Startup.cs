@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Extensions;
+using API.Middleware;
+using AutoMapper;
 using Core.Interfaces;
 using Infrastructure.Data;
 using Infrastructure.Identity;
@@ -34,6 +36,7 @@ namespace API
         {
             services.AddControllers();
 
+
             services.AddDbContext<TranscriptContext>(x =>
             {
                 x.UseMySql(Configuration.GetConnectionString("TranscriptConnection"));
@@ -50,15 +53,26 @@ namespace API
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRespository<>));
             services.AddScoped<IAuthRepository, AuthRepository>();
+
+            services.AddAutoMapper(typeof(Startup));
+
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            // if (env.IsDevelopment())
+            // {
+            //     app.UseDeveloperExceptionPage();
+            // }
+
+            app.UseMiddleware<ExceptionMiddleware>();
+
+            app.UseStatusCodePagesWithRedirects("/errors/{0}");
 
             app.UseHttpsRedirection();
 

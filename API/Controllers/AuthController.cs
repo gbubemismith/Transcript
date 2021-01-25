@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+using API.Dtos;
 using Core.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +17,18 @@ namespace API.Controllers
         {
             _userManager = userManager;
             _signInManager = signInManager;
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(LoginDto loginDto)
+        {
+            var user = await _userManager.FindByEmailAsync(loginDto.Email);
+
+            // if (user == null)
+            // return Unauthorized
+
+
+            return Ok();
         }
     }
 }

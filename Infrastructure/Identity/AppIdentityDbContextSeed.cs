@@ -13,10 +13,11 @@ namespace Infrastructure.Identity
             {
                 var user = new User
                 {
-                    DisplayName = "Gbubemi",
+                    DisplayName = "Gbubemi Smith",
                     Email = "gsmith@test.com",
-                    UserName = "gsmith@test.com"
-
+                    UserName = "gsmith@test.com",
+                    FirstName = "Gbubemi",
+                    LastName = "Smith"
                 };
 
                 await userManager.CreateAsync(user, "Pa$$w0rd");

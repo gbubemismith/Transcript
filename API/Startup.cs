@@ -9,6 +9,7 @@ using AutoMapper;
 using Core.Interfaces;
 using Infrastructure.Data;
 using Infrastructure.Identity;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -50,10 +51,11 @@ namespace API
 
             //i dont know why this has to be here
             services.TryAddSingleton<ISystemClock, SystemClock>();
-            services.AddIdentityServices();
+            services.AddIdentityServices(Configuration);
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRespository<>));
             services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<ITokenService, TokenService>();
 
             services.AddAutoMapper(typeof(Startup));
 

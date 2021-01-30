@@ -92,6 +92,8 @@ namespace API
 
                     Console.WriteLine("Conn Url " + connUrl);
 
+                    Console.WriteLine("Connection:::" + connUrl);
+
                     connUrl = connUrl.Replace("mysql://", string.Empty);
                     var userPassSide = connUrl.Split("@")[0];
                     var hostSide = connUrl.Split("@")[1];

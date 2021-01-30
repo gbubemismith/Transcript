@@ -29,7 +29,7 @@ namespace API.Controllers
         }
 
         [Authorize]
-        [HttpGet]
+        [HttpGet("GetCurrentUser")]
         public async Task<IActionResult> GetCurrentUser()
         {
             var user = await _userManager.FindByEmailFromClaimsPrinciple(HttpContext.User);

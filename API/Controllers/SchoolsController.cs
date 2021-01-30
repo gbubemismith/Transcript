@@ -20,9 +20,9 @@ namespace API.Controllers
             _facultyRepo = facultyRepo;
         }
 
-        public async Task<IActionResult> GetSchools()
-        {
-            return Ok();
-        }
+        // public async Task<IActionResult> GetSchools()
+        // {
+        //     return Ok();
+        // }
     }
 }

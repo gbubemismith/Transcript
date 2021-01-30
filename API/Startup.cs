@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using API.Errors;
 using API.Extensions;
 using API.Middleware;
@@ -13,14 +11,11 @@ using Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace API
 {
@@ -41,12 +36,74 @@ namespace API
 
             services.AddDbContext<TranscriptContext>(x =>
             {
-                x.UseMySql(Configuration.GetConnectionString("TranscriptConnection"));
+
+                var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+                string connStr;
+
+                if (env == "Development")
+                {
+                    connStr = Configuration.GetConnectionString("TranscriptConnection");
+
+
+                }
+                else
+                {
+                    // Use connection string provided at runtime by Heroku.
+                    var connUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+
+                    connUrl = connUrl.Replace("mysql://", string.Empty);
+                    var userPassSide = connUrl.Split("@")[0];
+                    var hostSide = connUrl.Split("@")[1];
+
+                    var connUser = userPassSide.Split(":")[0];
+                    var connPass = userPassSide.Split(":")[1];
+                    var connHost = hostSide.Split("/")[0];
+                    var connDb = hostSide.Split("/")[1].Split("?")[0];
+
+                    //server=localhost;Uid=gbubemi;Pwd=limited29;Database=IdentityDb
+                    connStr = $"server={connHost};Uid={connUser};Pwd={connPass};Database={connDb}";
+
+
+
+                }
+
+                x.UseMySql(connStr);
+
             });
 
             services.AddDbContext<AppIdentityDbContext>(x =>
             {
-                x.UseMySql(Configuration.GetConnectionString("IdentityConnection"));
+                var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+                string connStr;
+
+                if (env == "Development")
+                {
+                    connStr = Configuration.GetConnectionString("IdentityConnection");
+
+
+                }
+                else
+                {
+                    // Use connection string provided at runtime by Heroku.
+                    var connUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+
+                    connUrl = connUrl.Replace("mysql://", string.Empty);
+                    var userPassSide = connUrl.Split("@")[0];
+                    var hostSide = connUrl.Split("@")[1];
+
+                    var connUser = userPassSide.Split(":")[0];
+                    var connPass = userPassSide.Split(":")[1];
+                    var connHost = hostSide.Split("/")[0];
+                    var connDb = hostSide.Split("/")[1].Split("?")[0];
+
+                    //server=localhost;Uid=gbubemi;Pwd=limited29;Database=IdentityDb
+                    connStr = $"server={connHost};Uid={connUser};Pwd={connPass};Database={connDb}";
+
+
+
+                }
+
+                x.UseMySql(connStr);
             });
 
             //i dont know why this has to be here
@@ -76,6 +133,10 @@ namespace API
                     return new BadRequestObjectResult(errorResponse);
                 };
             });
+
+            services.AddSwaggerDocumentation();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -97,10 +158,15 @@ namespace API
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseSwaggerDocumentation();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
+
+
         }
     }
 }

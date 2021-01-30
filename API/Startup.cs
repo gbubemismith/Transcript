@@ -51,6 +51,8 @@ namespace API
                     // Use connection string provided at runtime by Heroku.
                     var connUrl = Environment.GetEnvironmentVariable("CLEARDB_DATABASE_URL");
 
+                    Console.WriteLine("Connection string::" + connUrl);
+
                     connUrl = connUrl.Replace("mysql://", string.Empty);
                     var userPassSide = connUrl.Split("@")[0];
                     var hostSide = connUrl.Split("@")[1];
@@ -86,10 +88,6 @@ namespace API
                 {
                     // Use connection string provided at runtime by Heroku.
                     var connUrl = Environment.GetEnvironmentVariable("CLEARDB_DATABASE_URL");
-
-                    Console.WriteLine("Conn Url " + connUrl);
-
-                    Console.WriteLine("Connection:::" + connUrl);
 
                     connUrl = connUrl.Replace("mysql://", string.Empty);
                     var userPassSide = connUrl.Split("@")[0];

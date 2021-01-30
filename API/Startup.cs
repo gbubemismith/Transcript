@@ -76,6 +76,9 @@ namespace API
                 var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
                 string connStr;
 
+
+                env = "Production";
+
                 if (env == "Development")
                 {
                     connStr = Configuration.GetConnectionString("IdentityConnection");
@@ -85,7 +88,9 @@ namespace API
                 else
                 {
                     // Use connection string provided at runtime by Heroku.
-                    var connUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+                    var connUrl = Environment.GetEnvironmentVariable("CLEARDB_DATABASE_URL");
+
+                    Console.WriteLine("Conn Url " + connUrl);
 
                     connUrl = connUrl.Replace("mysql://", string.Empty);
                     var userPassSide = connUrl.Split("@")[0];
@@ -103,7 +108,7 @@ namespace API
 
                 }
 
-                x.UseMySql(connStr);
+                // x.UseMySql(connStr);
             });
 
             //i dont know why this has to be here

@@ -89,11 +89,8 @@ namespace API
                 {
                     // Use connection string provided at runtime by Heroku.
                     var connUrl = Environment.GetEnvironmentVariable("CLEARDB_DATABASE_URL");
-<<<<<<< HEAD
 
                     Console.WriteLine("Conn Url " + connUrl);
-=======
->>>>>>> dev
 
                     Console.WriteLine("Connection:::" + connUrl);
 

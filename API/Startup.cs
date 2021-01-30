@@ -76,9 +76,6 @@ namespace API
                 var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
                 string connStr;
 
-
-                env = "Production";
-
                 if (env == "Development")
                 {
                     connStr = Configuration.GetConnectionString("IdentityConnection");

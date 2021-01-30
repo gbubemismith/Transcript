@@ -87,6 +87,8 @@ namespace API
                     // Use connection string provided at runtime by Heroku.
                     var connUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
 
+                    Console.WriteLine("Connection:::" + connUrl);
+
                     connUrl = connUrl.Replace("mysql://", string.Empty);
                     var userPassSide = connUrl.Split("@")[0];
                     var hostSide = connUrl.Split("@")[1];

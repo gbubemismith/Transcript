@@ -49,7 +49,7 @@ namespace API
                 else
                 {
                     // Use connection string provided at runtime by Heroku.
-                    var connUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+                    var connUrl = Environment.GetEnvironmentVariable("CLEARDB_DATABASE_URL");
 
                     connUrl = connUrl.Replace("mysql://", string.Empty);
                     var userPassSide = connUrl.Split("@")[0];
@@ -85,7 +85,7 @@ namespace API
                 else
                 {
                     // Use connection string provided at runtime by Heroku.
-                    var connUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+                    var connUrl = Environment.GetEnvironmentVariable("CLEARDB_DATABASE_URL");
 
                     Console.WriteLine("Connection:::" + connUrl);
 

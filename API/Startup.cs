@@ -105,7 +105,7 @@ namespace API
 
                 }
 
-                // x.UseMySql(connStr);
+                x.UseMySql(connStr);
             });
 
             //i dont know why this has to be here

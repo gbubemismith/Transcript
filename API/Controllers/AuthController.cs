@@ -76,7 +76,7 @@ namespace API.Controllers
             return Ok(userDto);
         }
 
-        [HttpPost("resgister")]
+        [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterDto registerDto)
         {
             if (CheckEmailExistsAsync(registerDto.Email).Result.Value)

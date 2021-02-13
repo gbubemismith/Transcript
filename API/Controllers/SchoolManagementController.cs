@@ -7,13 +7,13 @@ namespace API.Controllers
 {
     [Route("api/v1/[controller]")]
     [ApiController]
-    public class SchoolsController : ControllerBase
+    public class SchoolManagementController : ControllerBase
     {
         private readonly IGenericRepository<School> _schoolRepo;
         private readonly IGenericRepository<SchoolDepartment> _deptRepo;
         private readonly IGenericRepository<SchoolFaculty> _facultyRepo;
 
-        public SchoolsController(IGenericRepository<School> schoolRepo, IGenericRepository<SchoolDepartment> deptRepo, IGenericRepository<SchoolFaculty> facultyRepo)
+        public SchoolManagementController(IGenericRepository<School> schoolRepo, IGenericRepository<SchoolDepartment> deptRepo, IGenericRepository<SchoolFaculty> facultyRepo)
         {
             _schoolRepo = schoolRepo;
             _deptRepo = deptRepo;

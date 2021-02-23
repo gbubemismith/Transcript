@@ -81,16 +81,11 @@ namespace API
                 {
                     connStr = Configuration.GetConnectionString("IdentityConnection");
 
-
                 }
                 else
                 {
                     // Use connection string provided at runtime by Heroku.
                     var connUrl = Environment.GetEnvironmentVariable("CLEARDB_DATABASE_URL");
-
-                    Console.WriteLine("Conn Url " + connUrl);
-
-                    Console.WriteLine("Connection:::" + connUrl);
 
                     connUrl = connUrl.Replace("mysql://", string.Empty);
                     var userPassSide = connUrl.Split("@")[0];
@@ -109,33 +104,13 @@ namespace API
                 x.UseMySql(connStr);
             });
 
+            services.AddApplicationServices();
+
             //i dont know why this has to be here
             services.TryAddSingleton<ISystemClock, SystemClock>();
             services.AddIdentityServices(Configuration);
 
-            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRespository<>));
-            services.AddScoped<IAuthRepository, AuthRepository>();
-            services.AddScoped<ITokenService, TokenService>();
-
             services.AddAutoMapper(typeof(Startup));
-
-            services.Configure<ApiBehaviorOptions>(options =>
-            {
-                options.InvalidModelStateResponseFactory = actionContext =>
-                {
-                    var errors = actionContext.ModelState
-                                    .Where(e => e.Value.Errors.Count > 0)
-                                    .SelectMany(x => x.Value.Errors)
-                                    .Select(x => x.ErrorMessage).ToArray();
-
-                    var errorResponse = new ApiValidationErrorResponse
-                    {
-                        Errors = errors
-                    };
-
-                    return new BadRequestObjectResult(errorResponse);
-                };
-            });
 
             services.AddSwaggerDocumentation();
 

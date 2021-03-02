@@ -82,7 +82,6 @@ namespace API
                 {
                     connStr = Configuration.GetConnectionString("IdentityConnection");
 
-
                 }
                 else
                 {
@@ -106,33 +105,13 @@ namespace API
                 x.UseMySql(connStr);
             });
 
+            services.AddApplicationServices();
+
             //i dont know why this has to be here
             services.TryAddSingleton<ISystemClock, SystemClock>();
             services.AddIdentityServices(Configuration);
 
-            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRespository<>));
-            services.AddScoped<IAuthRepository, AuthRepository>();
-            services.AddScoped<ITokenService, TokenService>();
-
             services.AddAutoMapper(typeof(Startup));
-
-            services.Configure<ApiBehaviorOptions>(options =>
-            {
-                options.InvalidModelStateResponseFactory = actionContext =>
-                {
-                    var errors = actionContext.ModelState
-                                    .Where(e => e.Value.Errors.Count > 0)
-                                    .SelectMany(x => x.Value.Errors)
-                                    .Select(x => x.ErrorMessage).ToArray();
-
-                    var errorResponse = new ApiValidationErrorResponse
-                    {
-                        Errors = errors
-                    };
-
-                    return new BadRequestObjectResult(errorResponse);
-                };
-            });
 
             services.AddSwaggerDocumentation();
 

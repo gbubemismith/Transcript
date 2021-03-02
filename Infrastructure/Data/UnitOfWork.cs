@@ -9,8 +9,14 @@ namespace Infrastructure.Data
         public UnitOfWork(TranscriptContext context)
         {
             _context = context;
+            Schools = new SchoolRepository(_context);
+            Department = new DepartmentRepository(_context);
 
         }
+
+        public ISchoolRepository Schools { get; private set; }
+        public IDepartmentRepository Department { get; private set; }
+
         public async Task<int> CompleteAsync()
         {
             return await _context.SaveChangesAsync();

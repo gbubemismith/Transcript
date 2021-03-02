@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Core.Entities;
 using Core.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data
 {
@@ -12,10 +14,11 @@ namespace Infrastructure.Data
 
         }
 
-        public void Check()
+        public Task<School> GetSchoolByName(string name)
         {
-            // _context.School.Where(p => p.)
+            return _context.School.FirstOrDefaultAsync(s => s.Name == name);
         }
+
 
         //another way
         // public TranscriptContext TranscriptContext

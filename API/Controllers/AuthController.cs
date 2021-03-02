@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -49,7 +50,16 @@ namespace API.Controllers
         [HttpGet("emailexists")]
         public async Task<ActionResult<bool>> CheckEmailExistsAsync([FromQuery] string email)
         {
-            return await _userManager.FindByEmailAsync(email) != null;
+            try
+            {
+                return await _userManager.FindByEmailAsync(email) != null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error occured ::" + ex.Message);
+                return false;
+            }
+
 
         }
 

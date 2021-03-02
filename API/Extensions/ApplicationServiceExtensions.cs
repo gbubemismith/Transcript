@@ -1,6 +1,7 @@
 using System.Linq;
 using API.Errors;
 using Core.Interfaces;
+using Core.Interfaces.services;
 using Infrastructure.Data;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication;
@@ -16,6 +17,7 @@ namespace API.Extensions
         {
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<ISchoolManagementService, SchoolManagementService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRespository<>));

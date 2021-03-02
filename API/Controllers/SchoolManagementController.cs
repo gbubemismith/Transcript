@@ -1,6 +1,8 @@
 using System.Threading.Tasks;
+using API.Errors;
 using Core.Entities;
 using Core.Interfaces;
+using Core.Interfaces.services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -9,20 +11,26 @@ namespace API.Controllers
     [ApiController]
     public class SchoolManagementController : ControllerBase
     {
-        private readonly IGenericRepository<School> _schoolRepo;
-        private readonly IGenericRepository<SchoolDepartment> _deptRepo;
-        private readonly IGenericRepository<SchoolFaculty> _facultyRepo;
+        private readonly ISchoolManagementService _schoolService;
 
-        public SchoolManagementController(IGenericRepository<School> schoolRepo, IGenericRepository<SchoolDepartment> deptRepo, IGenericRepository<SchoolFaculty> facultyRepo)
+        public SchoolManagementController(ISchoolManagementService schoolService)
         {
-            _schoolRepo = schoolRepo;
-            _deptRepo = deptRepo;
-            _facultyRepo = facultyRepo;
+            _schoolService = schoolService;
+
         }
 
-        // public async Task<IActionResult> GetSchools()
-        // {
-        //     return Ok();
-        // }
+        [HttpGet("GetSchoolById")]
+        public async Task<IActionResult> GetSchoolById(int id)
+        {
+            var school = await _schoolService.GetSchoolById(id);
+
+            if (school == null)
+                return NotFound(new ApiResponse(404));
+
+            return Ok(school);
+
+        }
+
+
     }
 }

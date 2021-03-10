@@ -19,7 +19,7 @@ namespace API.Controllers
 
         }
 
-        [HttpGet("GetSchoolById")]
+        [HttpGet("GetSchoolById/{id}")]
         public async Task<IActionResult> GetSchoolById(int id)
         {
             var school = await _schoolService.GetSchoolById(id);
@@ -28,7 +28,6 @@ namespace API.Controllers
                 return NotFound(new ApiResponse(404));
 
             return Ok(school);
-
         }
 
 

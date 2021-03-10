@@ -3,14 +3,16 @@ using System;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(TranscriptContext))]
-    partial class TranscriptContextModelSnapshot : ModelSnapshot
+    [Migration("20210307003613_newucolumn_update")]
+    partial class newucolumn_update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,11 +91,6 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("varchar(180) CHARACTER SET utf8mb4")
-                        .HasMaxLength(180);
-
-                    b.Property<string>("Country")
                         .IsRequired()
                         .HasColumnType("varchar(180) CHARACTER SET utf8mb4")
                         .HasMaxLength(180);

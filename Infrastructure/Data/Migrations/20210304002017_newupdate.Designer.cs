@@ -3,14 +3,16 @@ using System;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(TranscriptContext))]
-    partial class TranscriptContextModelSnapshot : ModelSnapshot
+    [Migration("20210304002017_newupdate")]
+    partial class newupdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,11 +95,6 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnType("varchar(180) CHARACTER SET utf8mb4")
                         .HasMaxLength(180);
 
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasColumnType("varchar(180) CHARACTER SET utf8mb4")
-                        .HasMaxLength(180);
-
                     b.Property<DateTime>("CreateDate")
                         .HasColumnType("datetime(6)");
 
@@ -105,11 +102,6 @@ namespace Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(150) CHARACTER SET utf8mb4")
                         .HasMaxLength(150);
-
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasColumnType("varchar(180) CHARACTER SET utf8mb4")
-                        .HasMaxLength(180);
 
                     b.HasKey("Id");
 

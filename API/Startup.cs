@@ -68,6 +68,7 @@ namespace API
                 }
 
                 x.UseMySql(connStr);
+                
 
             });
 

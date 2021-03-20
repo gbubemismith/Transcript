@@ -30,6 +30,17 @@ namespace API.Controllers
             return Ok(school);
         }
 
+        [HttpGet("GetSchools")]
+        public async Task<IActionResult> GetSchools()
+        {
+            var schools = await _schoolService.GetAllSchools();
+
+            if (schools == null)
+                return NotFound(new ApiResponse(404));
+
+            return Ok(schools);
+        }
+
 
     }
 }

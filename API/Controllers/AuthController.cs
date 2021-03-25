@@ -21,9 +21,11 @@ namespace API.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly ITokenService _tokenService;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AuthController(UserManager<User> userManager, SignInManager<User> signInManager, ITokenService tokenService)
+        public AuthController(UserManager<User> userManager, SignInManager<User> signInManager, ITokenService tokenService, RoleManager<IdentityRole> roleManager)
         {
+            _roleManager = roleManager;
             _tokenService = tokenService;
             _userManager = userManager;
             _signInManager = signInManager;
@@ -80,6 +82,7 @@ namespace API.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterDto registerDto)
         {
+
             if (CheckEmailExistsAsync(registerDto.Email).Result.Value)
             {
                 return new BadRequestObjectResult(new ApiValidationErrorResponse
@@ -105,12 +108,15 @@ namespace API.Controllers
             if (!result.Succeeded)
                 return BadRequest(new ApiResponse(400));
 
+            //newly added to create user with role
+            await _userManager.AddToRoleAsync(user, Role.User);
 
             return Ok(new UserDto
             {
                 DisplayName = user.DisplayName,
                 Token = _tokenService.CreateToken(user),
-                Email = user.Email
+                Email = user.Email,
+                Role = Role.User
             });
         }
     }

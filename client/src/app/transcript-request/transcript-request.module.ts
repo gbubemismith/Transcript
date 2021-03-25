@@ -8,6 +8,7 @@ import { TranscriptRequestComponent } from './transcript-request.component';
   declarations: [TranscriptRequestComponent],
   imports: [
     CommonModule
-  ]
+  ],
+  exports: [TranscriptRequestComponent]
 })
 export class TranscriptRequestModule { }

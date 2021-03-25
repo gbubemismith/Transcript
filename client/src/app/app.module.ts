@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { TranscriptRequestModule } from './transcript-request/transcript-request.module';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { AppComponent } from './app.component';
     AppRoutingModule, 
     BrowserAnimationsModule,
     HttpClientModule,
-    CoreModule
+    CoreModule,
+    TranscriptRequestModule
   ],
   providers: [],
   bootstrap: [AppComponent],

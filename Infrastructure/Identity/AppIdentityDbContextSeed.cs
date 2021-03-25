@@ -24,5 +24,15 @@ namespace Infrastructure.Identity
 
             }
         }
+
+        public static async Task SeedRolesAsync(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
+        {
+
+            await roleManager.CreateAsync(new IdentityRole(Role.Admin));
+            await roleManager.CreateAsync(new IdentityRole(Role.SchoolUser));
+            await roleManager.CreateAsync(new IdentityRole(Role.User));
+
+
+        }
     }
 }

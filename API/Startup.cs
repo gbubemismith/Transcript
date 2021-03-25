@@ -67,8 +67,8 @@ namespace API
 
                 }
 
-                x.UseMySql(connStr);
-                
+                x.UseMySql(connStr, ServerVersion.AutoDetect(connStr));
+
 
             });
 
@@ -102,7 +102,7 @@ namespace API
 
                 }
 
-                x.UseMySql(connStr);
+                x.UseMySql(connStr, ServerVersion.AutoDetect(connStr));
             });
 
             services.AddApplicationServices();

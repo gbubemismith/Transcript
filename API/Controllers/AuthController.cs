@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using API.Dtos;
 using API.Errors;
 using API.Extensions;
+using AutoMapper;
 using Core.Entities.Identity;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -21,10 +22,12 @@ namespace API.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly ITokenService _tokenService;
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly RoleManager<AppRole> _roleManager;
+        private readonly IMapper _mapper;
 
-        public AuthController(UserManager<User> userManager, SignInManager<User> signInManager, ITokenService tokenService, RoleManager<IdentityRole> roleManager)
+        public AuthController(UserManager<User> userManager, SignInManager<User> signInManager, ITokenService tokenService, RoleManager<AppRole> roleManager, IMapper mapper)
         {
+            _mapper = mapper;
             _roleManager = roleManager;
             _tokenService = tokenService;
             _userManager = userManager;
@@ -94,14 +97,7 @@ namespace API.Controllers
             }
 
             //modify use automapper
-            var user = new User
-            {
-                Email = registerDto.Email,
-                UserName = registerDto.Email,
-                FirstName = registerDto.FirstName,
-                LastName = registerDto.LastName,
-                DisplayName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(registerDto.FirstName.ToLower() + " " + registerDto.LastName.ToLower())
-            };
+            var user = _mapper.Map<User>(registerDto);
 
             var result = await _userManager.CreateAsync(user, registerDto.Password);
 
@@ -118,6 +114,12 @@ namespace API.Controllers
                 Email = user.Email,
                 Role = Role.User
             });
+        }
+
+        [HttpPost("register/schooluser")]
+        public async Task<IActionResult> RegisterAsSchoolUser(SchoolUserDto schoolUserDto)
+        {
+            return Ok();
         }
     }
 }

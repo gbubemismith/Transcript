@@ -10,6 +10,8 @@ namespace Infrastructure.Data.Config
         {
             builder.Property(p => p.FirstName).IsRequired().HasMaxLength(150);
             builder.Property(p => p.LastName).IsRequired().HasMaxLength(150);
+            builder.Property(p => p.SchoolId);
+
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Core.Entities.Identity;
@@ -27,6 +28,18 @@ namespace Infrastructure.Identity
 
         public static async Task SeedRolesAsync(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
         {
+            // var roles = new List<AppRole>
+            // {
+            //     new AppRole{ Name = Role.Admin},
+            //     new AppRole{ Name = Role.SchoolUser},
+            //     new AppRole{ Name = Role.User}
+            // };
+
+
+            // foreach (var role in roles)
+            // {
+            //     await roleManager.CreateAsync(role);
+            // }
 
             await roleManager.CreateAsync(new IdentityRole(Role.Admin));
             await roleManager.CreateAsync(new IdentityRole(Role.SchoolUser));

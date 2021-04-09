@@ -9,10 +9,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data
 {
-    public class GenericRespository<T> : IGenericRepository<T> where T : BaseEntity
+    public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
         protected readonly TranscriptContext _context;
-        public GenericRespository(TranscriptContext context)
+        public GenericRepository(TranscriptContext context)
         {
             _context = context;
 
@@ -41,6 +41,11 @@ namespace Infrastructure.Data
         public void Remove(T entity)
         {
             _context.Set<T>().Remove(entity);
+        }
+
+        public void Update(T entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

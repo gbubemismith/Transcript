@@ -8,25 +8,51 @@ namespace Infrastructure.Identity
 {
     public class AppIdentityDbContextSeed
     {
-        public static async Task SeedUserAsync(UserManager<User> userManager)
+        public static async Task SeedUserAsync(UserManager<User> userManager, RoleManager<AppRole> roleManager)
         {
-            if (!userManager.Users.Any())
+            if (userManager.Users.Any()) return;
+
+
+            var user = new User
             {
-                var user = new User
-                {
-                    DisplayName = "Gbubemi Smith",
-                    Email = "gsmith@test.com",
-                    UserName = "gsmith@test.com",
-                    FirstName = "Gbubemi",
-                    LastName = "Smith"
-                };
+                DisplayName = "Gbubemi Smith",
+                Email = "gsmith@test.com",
+                UserName = "gsmith@test.com",
+                FirstName = "Gbubemi",
+                LastName = "Smith"
+            };
 
-                await userManager.CreateAsync(user, "Pa$$w0rd");
+            var roles = new List<AppRole>
+            {
+                new AppRole{ Name = Role.Admin},
+                new AppRole{ Name = Role.SchoolUser},
+                new AppRole{ Name = Role.User}
+            };
 
+
+            foreach (var role in roles)
+            {
+                await roleManager.CreateAsync(role);
             }
+
+            await userManager.CreateAsync(user, "Pa$$w0rd");
+            await userManager.AddToRoleAsync(user, Role.User);
+
+            var adminUser = new User
+            {
+                DisplayName = "Admin",
+                Email = "admin@test.com",
+                UserName = "admin",
+                FirstName = "admin",
+                LastName = "admin"
+            };
+
+            await userManager.CreateAsync(adminUser, "Pa$$w0rd");
+            await userManager.AddToRolesAsync(adminUser, new[] { Role.Admin, Role.SchoolUser });
+
         }
 
-        public static async Task SeedRolesAsync(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
+        public static async Task SeedRolesAsync(RoleManager<IdentityRole> roleManager)
         {
             // var roles = new List<AppRole>
             // {

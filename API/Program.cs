@@ -28,16 +28,16 @@ namespace API
                 var loggerFactory = services.GetRequiredService<ILoggerFactory>();
                 try
                 {
-                    var transcriptContext = services.GetRequiredService<TranscriptContext>();
-                    await transcriptContext.Database.MigrateAsync();
+                    // var transcriptContext = services.GetRequiredService<TranscriptContext>();
+                    // await transcriptContext.Database.MigrateAsync();
 
 
                     var userManager = services.GetRequiredService<UserManager<User>>();
                     var identityContext = services.GetRequiredService<AppIdentityDbContext>();
-                    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-                    // await identityContext.Database.MigrateAsync();
-                    await AppIdentityDbContextSeed.SeedUserAsync(userManager);
-                    // await AppIdentityDbContextSeed.SeedRolesAsync(userManager, roleManager);
+                    var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
+                    await identityContext.Database.MigrateAsync();
+                    await AppIdentityDbContextSeed.SeedUserAsync(userManager, roleManager);
+                    // await AppIdentityDbContextSeed.SeedRolesAsync(roleManager);
                 }
                 catch (Exception ex)
                 {
@@ -58,27 +58,27 @@ namespace API
                     webBuilder.UseStartup<Startup>();
                 });
 
-        private static async Task CreateAndSeedDatabase(IHost host)
-        {
-            using (var scope = host.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
-                var loggerFactory = services.GetRequiredService<ILoggerFactory>();
+        // private static async Task CreateAndSeedDatabase(IHost host)
+        // {
+        //     using (var scope = host.Services.CreateScope())
+        //     {
+        //         var services = scope.ServiceProvider;
+        //         var loggerFactory = services.GetRequiredService<ILoggerFactory>();
 
-                try
-                {
-                    var userManager = services.GetRequiredService<UserManager<User>>();
-                    var identityContext = services.GetRequiredService<AppIdentityDbContext>();
-                    await identityContext.Database.MigrateAsync();
-                    await AppIdentityDbContextSeed.SeedUserAsync(userManager);
-                }
-                catch (Exception ex)
-                {
-                    var logger = loggerFactory.CreateLogger<Program>();
-                    logger.LogError("error in program::" + ex.Message);
-                }
+        //         try
+        //         {
+        //             var userManager = services.GetRequiredService<UserManager<User>>();
+        //             var identityContext = services.GetRequiredService<AppIdentityDbContext>();
+        //             await identityContext.Database.MigrateAsync();
+        //             await AppIdentityDbContextSeed.SeedUserAsync(userManager);
+        //         }
+        //         catch (Exception ex)
+        //         {
+        //             var logger = loggerFactory.CreateLogger<Program>();
+        //             logger.LogError("error in program::" + ex.Message);
+        //         }
 
-            }
-        }
+        //     }
+        // }
     }
 }

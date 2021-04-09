@@ -13,6 +13,7 @@ namespace Core.Interfaces
         IEnumerable<T> Find(Expression<Func<T, bool>> predicate);
         void Add(T entity);
         void Remove(T entity);
+        void Update(T entity);
 
 
     }

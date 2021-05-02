@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using API.Dtos;
 using API.Errors;
@@ -43,7 +44,7 @@ namespace API.Controllers
             var userDto = new UserDto
             {
                 Email = user.Email,
-                Token = _tokenService.CreateToken(user),
+                Token = await _tokenService.CreateToken(user),
                 DisplayName = user.DisplayName
             };
 
@@ -75,7 +76,7 @@ namespace API.Controllers
             var userDto = new UserDto
             {
                 Email = user.Email,
-                Token = _tokenService.CreateToken(user),
+                Token = await _tokenService.CreateToken(user),
                 DisplayName = user.DisplayName
             };
 
@@ -105,12 +106,15 @@ namespace API.Controllers
                 return BadRequest(new ApiResponse(400));
 
             //newly added to create user with role
-            await _userManager.AddToRoleAsync(user, Role.User);
+            var roleResult = await _userManager.AddToRoleAsync(user, Role.User);
+
+            if (!roleResult.Succeeded)
+                return BadRequest(new ApiResponse(400));
 
             return Ok(new UserDto
             {
                 DisplayName = user.DisplayName,
-                Token = _tokenService.CreateToken(user),
+                Token = await _tokenService.CreateToken(user),
                 Email = user.Email,
                 Role = Role.User
             });
@@ -120,6 +124,11 @@ namespace API.Controllers
         public async Task<IActionResult> RegisterAsSchoolUser(SchoolUserDto schoolUserDto)
         {
             return Ok();
+
+
+
+
+
         }
     }
 }

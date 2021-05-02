@@ -27,7 +27,7 @@ namespace Infrastructure.Identity
             builder.Entity<AppRole>()
                     .HasMany(ur => ur.UserRoles)
                     .WithOne(u => u.Role)
-                    .HasForeignKey(ur => ur.UserId)
+                    .HasForeignKey(ur => ur.RoleId)
                     .IsRequired();
         }
     }

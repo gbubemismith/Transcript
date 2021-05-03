@@ -1,20 +1,21 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using Core.Entities.Identity;
 
 namespace Core.Entities
 {
     [Table("transcript_request_main")]
     public class TranscriptRequest : BaseEntity
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
         public string MatricNumber { get; set; }
         public string PhoneNumber { get; set; }
         public string ForwardingName { get; set; }
         public string ForwardingAddress { get; set; }
         public string ForwardingInstitution { get; set; }
         public string CourierType { get; set; }
+        public int UserId { get; set; }
+        public User User { get; set; }
         public School School { get; set; }
         public int SchoolId { get; set; }
         public SchoolFaculty Faculty { get; set; }

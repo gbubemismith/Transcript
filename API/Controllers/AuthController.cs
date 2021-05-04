@@ -97,6 +97,8 @@ namespace API.Controllers
                 });
             }
 
+            var roleToUse = Role.User;
+
             //modify use automapper
             var user = _mapper.Map<User>(registerDto);
 
@@ -105,8 +107,12 @@ namespace API.Controllers
             if (!result.Succeeded)
                 return BadRequest(new ApiResponse(400));
 
+            //check is user is admin
+            if (registerDto.IsAdmin)
+                roleToUse = Role.Admin;
+
             //newly added to create user with role
-            var roleResult = await _userManager.AddToRoleAsync(user, Role.User);
+            var roleResult = await _userManager.AddToRoleAsync(user, roleToUse);
 
             if (!roleResult.Succeeded)
                 return BadRequest(new ApiResponse(400));
@@ -116,19 +122,9 @@ namespace API.Controllers
                 DisplayName = user.DisplayName,
                 Token = await _tokenService.CreateToken(user),
                 Email = user.Email,
-                Role = Role.User
+                Role = roleToUse
             });
         }
 
-        [HttpPost("register/schooluser")]
-        public async Task<IActionResult> RegisterAsSchoolUser(SchoolUserDto schoolUserDto)
-        {
-            return Ok();
-
-
-
-
-
-        }
     }
 }

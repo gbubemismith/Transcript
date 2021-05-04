@@ -21,6 +21,10 @@ namespace Infrastructure.Data.Config
                     .WithOne(p => p.Schools)
                     .HasForeignKey<User>(u => u.SchoolId);
 
+            builder.HasOne(p => p.TranscriptRequests)
+                    .WithOne(p => p.School)
+                    .HasForeignKey<TranscriptRequest>(t => t.SchoolId);
+
         }
     }
 }

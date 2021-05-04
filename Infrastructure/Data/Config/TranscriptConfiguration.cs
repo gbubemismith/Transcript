@@ -16,8 +16,6 @@ namespace Infrastructure.Data.Config
             builder.Property(p => p.ForwardingAddress).IsRequired().HasMaxLength(250);
             builder.Property(p => p.CourierType).IsRequired().HasMaxLength(50);
 
-            builder.HasOne(p => p.School).WithMany()
-                    .HasForeignKey(p => p.SchoolId);
 
         }
     }

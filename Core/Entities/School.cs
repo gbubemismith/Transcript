@@ -14,6 +14,7 @@ namespace Core.Entities
         public string Country { get; set; }
         public DateTime CreateDate { get; set; }
         public User User { get; set; }
+        public TranscriptRequest TranscriptRequests { get; set; }
         public ICollection<SchoolDepartment> Departments { get; set; }
         public ICollection<SchoolFaculty> Faculties { get; set; }
 

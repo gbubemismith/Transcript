@@ -13,7 +13,7 @@ namespace Core.Entities
         public SchoolFaculty SchoolFaculty { get; set; }
         public int SchoolFacultyId { get; set; }
         public DateTime CreateDate { get; set; }
-        public ICollection<TranscriptRequest> TranscriptRequests { get; set; }
+        public TranscriptRequest TranscriptRequests { get; set; }
 
 
     }

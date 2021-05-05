@@ -109,7 +109,7 @@ namespace API.Controllers
 
             //check is user is admin
             if (registerDto.IsAdmin)
-                roleToUse = Role.Admin;
+                roleToUse = Role.SchoolUser;
 
             //newly added to create user with role
             var roleResult = await _userManager.AddToRoleAsync(user, roleToUse);

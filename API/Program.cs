@@ -4,10 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Core.Entities.Identity;
 using Infrastructure.Data;
-using Infrastructure.Identity;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,16 +27,19 @@ namespace API
             {
                 var services = scope.ServiceProvider;
                 var loggerFactory = services.GetRequiredService<ILoggerFactory>();
+                var dbContext = services.GetRequiredService<TranscriptContext>();
                 try
                 {
-                    var transcriptContext = services.GetRequiredService<TranscriptContext>();
-                    await transcriptContext.Database.MigrateAsync();
+                    Console.WriteLine("Check::" + dbContext.GetService<IRelationalDatabaseCreator>().Exists());
+                    //check if database schema exist
+                    if (!(dbContext.GetService<IRelationalDatabaseCreator>().Exists()))
+                    {
+                        var userManager = services.GetRequiredService<UserManager<User>>();
+                        var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
 
+                        await TranscriptContextSeed.SeedAsync(dbContext, userManager, roleManager, loggerFactory);
+                    }
 
-                    var userManager = services.GetRequiredService<UserManager<User>>();
-                    var identityContext = services.GetRequiredService<AppIdentityDbContext>();
-                    await identityContext.Database.MigrateAsync();
-                    await AppIdentityDbContextSeed.SeedUserAsync(userManager);
                 }
                 catch (Exception ex)
                 {
@@ -56,27 +60,6 @@ namespace API
                     webBuilder.UseStartup<Startup>();
                 });
 
-        private static async Task CreateAndSeedDatabase(IHost host)
-        {
-            using (var scope = host.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
-                var loggerFactory = services.GetRequiredService<ILoggerFactory>();
 
-                try
-                {
-                    var userManager = services.GetRequiredService<UserManager<User>>();
-                    var identityContext = services.GetRequiredService<AppIdentityDbContext>();
-                    await identityContext.Database.MigrateAsync();
-                    await AppIdentityDbContextSeed.SeedUserAsync(userManager);
-                }
-                catch (Exception ex)
-                {
-                    var logger = loggerFactory.CreateLogger<Program>();
-                    logger.LogError("error in program::" + ex.Message);
-                }
-
-            }
-        }
     }
 }

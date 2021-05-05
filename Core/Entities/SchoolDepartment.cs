@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Core.Entities
@@ -12,5 +13,8 @@ namespace Core.Entities
         public SchoolFaculty SchoolFaculty { get; set; }
         public int SchoolFacultyId { get; set; }
         public DateTime CreateDate { get; set; }
+        public TranscriptRequest TranscriptRequests { get; set; }
+
+
     }
 }

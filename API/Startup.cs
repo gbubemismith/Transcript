@@ -6,7 +6,6 @@ using API.Middleware;
 using AutoMapper;
 using Core.Interfaces;
 using Infrastructure.Data;
-using Infrastructure.Identity;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
@@ -69,41 +68,9 @@ namespace API
 
                 }
 
-                x.UseMySql(connStr);
-                
-
-            });
-
-            services.AddDbContext<AppIdentityDbContext>(x =>
-            {
-                var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-                string connStr;
-
-                if (env == "Development")
-                {
-                    connStr = Configuration.GetConnectionString("IdentityConnection");
-
-                }
-                else
-                {
-                    // Use connection string provided at runtime by Heroku.
-                    var connUrl = Environment.GetEnvironmentVariable("CLEARDB_DATABASE_URL");
-
-                    connUrl = connUrl.Replace("mysql://", string.Empty);
-                    var userPassSide = connUrl.Split("@")[0];
-                    var hostSide = connUrl.Split("@")[1];
-
-                    var connUser = userPassSide.Split(":")[0];
-                    var connPass = userPassSide.Split(":")[1];
-                    var connHost = hostSide.Split("/")[0];
-                    var connDb = hostSide.Split("/")[1].Split("?")[0];
+                x.UseMySql(connStr, ServerVersion.AutoDetect(connStr));
 
 
-                    connStr = $"server={connHost};Uid={connUser};Pwd={connPass};Database={connDb}";
-
-                }
-
-                x.UseMySql(connStr);
             });
 
             services.AddApplicationServices();

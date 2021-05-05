@@ -20,7 +20,7 @@ namespace API.Extensions
             services.AddScoped<ISchoolManagementService, SchoolManagementService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRespository<>));
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
 
             services.Configure<ApiBehaviorOptions>(options =>

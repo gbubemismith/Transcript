@@ -2,10 +2,12 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using API.Dtos;
 using API.Errors;
 using API.Extensions;
+using AutoMapper;
 using Core.Entities.Identity;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -21,9 +23,13 @@ namespace API.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly ITokenService _tokenService;
+        private readonly RoleManager<AppRole> _roleManager;
+        private readonly IMapper _mapper;
 
-        public AuthController(UserManager<User> userManager, SignInManager<User> signInManager, ITokenService tokenService)
+        public AuthController(UserManager<User> userManager, SignInManager<User> signInManager, ITokenService tokenService, RoleManager<AppRole> roleManager, IMapper mapper)
         {
+            _mapper = mapper;
+            _roleManager = roleManager;
             _tokenService = tokenService;
             _userManager = userManager;
             _signInManager = signInManager;
@@ -38,7 +44,7 @@ namespace API.Controllers
             var userDto = new UserDto
             {
                 Email = user.Email,
-                Token = _tokenService.CreateToken(user),
+                Token = await _tokenService.CreateToken(user),
                 DisplayName = user.DisplayName
             };
 
@@ -70,7 +76,7 @@ namespace API.Controllers
             var userDto = new UserDto
             {
                 Email = user.Email,
-                Token = _tokenService.CreateToken(user),
+                Token = await _tokenService.CreateToken(user),
                 DisplayName = user.DisplayName
             };
 
@@ -80,6 +86,7 @@ namespace API.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterDto registerDto)
         {
+
             if (CheckEmailExistsAsync(registerDto.Email).Result.Value)
             {
                 return new BadRequestObjectResult(new ApiValidationErrorResponse
@@ -90,28 +97,34 @@ namespace API.Controllers
                 });
             }
 
+            var roleToUse = Role.User;
+
             //modify use automapper
-            var user = new User
-            {
-                Email = registerDto.Email,
-                UserName = registerDto.Email,
-                FirstName = registerDto.FirstName,
-                LastName = registerDto.LastName,
-                DisplayName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(registerDto.FirstName.ToLower() + " " + registerDto.LastName.ToLower())
-            };
+            var user = _mapper.Map<User>(registerDto);
 
             var result = await _userManager.CreateAsync(user, registerDto.Password);
 
             if (!result.Succeeded)
                 return BadRequest(new ApiResponse(400));
 
+            //check is user is admin
+            if (registerDto.IsAdmin)
+                roleToUse = Role.SchoolUser;
+
+            //newly added to create user with role
+            var roleResult = await _userManager.AddToRoleAsync(user, roleToUse);
+
+            if (!roleResult.Succeeded)
+                return BadRequest(new ApiResponse(400));
 
             return Ok(new UserDto
             {
                 DisplayName = user.DisplayName,
-                Token = _tokenService.CreateToken(user),
-                Email = user.Email
+                Token = await _tokenService.CreateToken(user),
+                Email = user.Email,
+                Role = roleToUse
             });
         }
+
     }
 }

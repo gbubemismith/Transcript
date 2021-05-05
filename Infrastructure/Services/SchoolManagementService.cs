@@ -30,5 +30,13 @@ namespace Infrastructure.Services
         {
             return await _unitOfWork.Department.GetBySchoolId(schoolId);
         }
+
+        public async Task<School> CreateSchool(School school)
+        {
+            _unitOfWork.Schools.Add(school);
+            await _unitOfWork.CompleteAsync();
+
+            return school;
+        }
     }
 }

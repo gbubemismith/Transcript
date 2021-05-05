@@ -9,6 +9,7 @@ namespace Core.Interfaces.services
         Task<School> GetSchoolById(int id);
         Task<IReadOnlyList<School>> GetAllSchools();
         Task<IReadOnlyList<SchoolDepartment>> GetDepartmentsBySchoolId(int schoolId);
+        Task<School> CreateSchool(School school);
 
     }
 }

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data
 {
-    public class SchoolRepository : GenericRespository<School>, ISchoolRepository
+    public class SchoolRepository : GenericRepository<School>, ISchoolRepository
     {
         public SchoolRepository(TranscriptContext context) : base(context)
         {

@@ -30,7 +30,6 @@ namespace API
                 var dbContext = services.GetRequiredService<TranscriptContext>();
                 try
                 {
-                    Console.WriteLine("Check::" + dbContext.GetService<IRelationalDatabaseCreator>().Exists());
                     //check if database schema exist
                     if (!(dbContext.GetService<IRelationalDatabaseCreator>().Exists()))
                     {

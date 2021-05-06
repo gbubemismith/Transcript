@@ -26,6 +26,7 @@ namespace Infrastructure.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            //added for heroku deployment
             modelBuilder.Entity<AppRole>(entity => entity.Property(m => m.Id).HasMaxLength(127));
             modelBuilder.Entity<IdentityUserLogin<int>>(entity => entity.Property(m => m.LoginProvider).HasMaxLength(127));
             modelBuilder.Entity<IdentityUserLogin<int>>(entity => entity.Property(m => m.ProviderKey).HasMaxLength(127));

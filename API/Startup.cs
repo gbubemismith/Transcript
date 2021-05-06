@@ -62,7 +62,7 @@ namespace API
                     var connDb = hostSide.Split("/")[1].Split("?")[0];
 
                     //server=localhost;Uid=gbubemi;Pwd=limited29;Database=IdentityDb
-                    connStr = $"server={connHost};Uid={connUser};Pwd={connPass};Database={connDb}";
+                    connStr = $"server={connHost};Uid={connUser};Pwd={connPass};Database={connDb};SslMode=none";
 
 
 

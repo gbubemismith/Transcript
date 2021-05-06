@@ -50,6 +50,8 @@ namespace API
                     // Use connection string provided at runtime by Heroku.
                     var connUrl = Environment.GetEnvironmentVariable("CLEARDB_DATABASE_URL");
 
+                    Console.WriteLine("Connection string::" + connUrl);
+
                     connUrl = connUrl.Replace("mysql://", string.Empty);
                     var userPassSide = connUrl.Split("@")[0];
                     var hostSide = connUrl.Split("@")[1];
@@ -60,7 +62,7 @@ namespace API
                     var connDb = hostSide.Split("/")[1].Split("?")[0];
 
                     //server=localhost;Uid=gbubemi;Pwd=limited29;Database=IdentityDb
-                    connStr = $"server={connHost};Uid={connUser};Pwd={connPass};Database={connDb}";
+                    connStr = $"server={connHost};Uid={connUser};Pwd={connPass};Database={connDb};SslMode=none";
 
 
 

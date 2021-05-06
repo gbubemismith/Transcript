@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(TranscriptContext))]
-    [Migration("20210504170255_transcript_request_table")]
-    partial class transcript_request_table
+    [Migration("20210506232141_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,7 @@ namespace Infrastructure.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasMaxLength(127)
                         .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -49,9 +50,11 @@ namespace Infrastructure.Data.Migrations
             modelBuilder.Entity("Core.Entities.Identity.AppUserRole", b =>
                 {
                     b.Property<int>("UserId")
+                        .HasMaxLength(127)
                         .HasColumnType("int");
 
                     b.Property<int>("RoleId")
+                        .HasMaxLength(127)
                         .HasColumnType("int");
 
                     b.HasKey("UserId", "RoleId");
@@ -65,6 +68,7 @@ namespace Infrastructure.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasMaxLength(127)
                         .HasColumnType("int");
 
                     b.Property<int>("AccessFailedCount")
@@ -353,10 +357,12 @@ namespace Infrastructure.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127) CHARACTER SET utf8mb4");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127) CHARACTER SET utf8mb4");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -374,13 +380,16 @@ namespace Infrastructure.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
                 {
                     b.Property<int>("UserId")
+                        .HasMaxLength(127)
                         .HasColumnType("int");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127) CHARACTER SET utf8mb4");
 
                     b.Property<string>("Name")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127) CHARACTER SET utf8mb4");
 
                     b.Property<string>("Value")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Infrastructure.Data.Migrations
 {
-    public partial class transcript_request_table : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,7 +12,7 @@ namespace Infrastructure.Data.Migrations
                 name: "AspNetRoles",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", maxLength: 127, nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(type: "varchar(256) CHARACTER SET utf8mb4", maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(type: "varchar(256) CHARACTER SET utf8mb4", maxLength: 256, nullable: true),
@@ -65,7 +65,7 @@ namespace Infrastructure.Data.Migrations
                 name: "AspNetUsers",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", maxLength: 127, nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     DisplayName = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     FirstName = table.Column<string>(type: "varchar(150) CHARACTER SET utf8mb4", maxLength: 150, nullable: false),
@@ -143,8 +143,8 @@ namespace Infrastructure.Data.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "varchar(255) CHARACTER SET utf8mb4", nullable: false),
-                    ProviderKey = table.Column<string>(type: "varchar(255) CHARACTER SET utf8mb4", nullable: false),
+                    LoginProvider = table.Column<string>(type: "varchar(127) CHARACTER SET utf8mb4", maxLength: 127, nullable: false),
+                    ProviderKey = table.Column<string>(type: "varchar(127) CHARACTER SET utf8mb4", maxLength: 127, nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     UserId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -163,8 +163,8 @@ namespace Infrastructure.Data.Migrations
                 name: "AspNetUserRoles",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    RoleId = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<int>(type: "int", maxLength: 127, nullable: false),
+                    RoleId = table.Column<int>(type: "int", maxLength: 127, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -187,9 +187,9 @@ namespace Infrastructure.Data.Migrations
                 name: "AspNetUserTokens",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    LoginProvider = table.Column<string>(type: "varchar(255) CHARACTER SET utf8mb4", nullable: false),
-                    Name = table.Column<string>(type: "varchar(255) CHARACTER SET utf8mb4", nullable: false),
+                    UserId = table.Column<int>(type: "int", maxLength: 127, nullable: false),
+                    LoginProvider = table.Column<string>(type: "varchar(127) CHARACTER SET utf8mb4", maxLength: 127, nullable: false),
+                    Name = table.Column<string>(type: "varchar(127) CHARACTER SET utf8mb4", maxLength: 127, nullable: false),
                     Value = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true)
                 },
                 constraints: table =>

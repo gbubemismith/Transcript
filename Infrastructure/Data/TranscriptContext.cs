@@ -25,6 +25,16 @@ namespace Infrastructure.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<AppRole>(entity => entity.Property(m => m.Id).HasMaxLength(127));
+            modelBuilder.Entity<IdentityUserLogin<int>>(entity => entity.Property(m => m.LoginProvider).HasMaxLength(127));
+            modelBuilder.Entity<IdentityUserLogin<int>>(entity => entity.Property(m => m.ProviderKey).HasMaxLength(127));
+            modelBuilder.Entity<AppUserRole>(entity => entity.Property(m => m.UserId).HasMaxLength(127));
+            modelBuilder.Entity<AppUserRole>(entity => entity.Property(m => m.RoleId).HasMaxLength(127));
+            modelBuilder.Entity<IdentityUserToken<int>>(entity => entity.Property(m => m.UserId).HasMaxLength(127));
+            modelBuilder.Entity<IdentityUserToken<int>>(entity => entity.Property(m => m.LoginProvider).HasMaxLength(127));
+            modelBuilder.Entity<IdentityUserToken<int>>(entity => entity.Property(m => m.Name).HasMaxLength(127));
+
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }

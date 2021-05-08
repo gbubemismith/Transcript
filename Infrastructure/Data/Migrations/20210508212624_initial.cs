@@ -67,12 +67,12 @@ namespace Infrastructure.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", maxLength: 127, nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    DisplayName = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    DisplayName = table.Column<string>(type: "varchar(127) CHARACTER SET utf8mb4", maxLength: 127, nullable: true),
                     FirstName = table.Column<string>(type: "varchar(150) CHARACTER SET utf8mb4", maxLength: 150, nullable: false),
                     LastName = table.Column<string>(type: "varchar(150) CHARACTER SET utf8mb4", maxLength: 150, nullable: false),
                     SchoolId = table.Column<int>(type: "int", nullable: true),
-                    UserName = table.Column<string>(type: "varchar(256) CHARACTER SET utf8mb4", maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "varchar(256) CHARACTER SET utf8mb4", maxLength: 256, nullable: true),
+                    UserName = table.Column<string>(type: "varchar(127) CHARACTER SET utf8mb4", maxLength: 127, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "varchar(127) CHARACTER SET utf8mb4", maxLength: 127, nullable: true),
                     Email = table.Column<string>(type: "varchar(256) CHARACTER SET utf8mb4", maxLength: 256, nullable: true),
                     NormalizedEmail = table.Column<string>(type: "varchar(256) CHARACTER SET utf8mb4", maxLength: 256, nullable: true),
                     EmailConfirmed = table.Column<bool>(type: "tinyint(1)", nullable: false),

@@ -29,6 +29,7 @@ namespace Infrastructure.Data
             //added for heroku deployment
             modelBuilder.Entity<AppRole>(entity => entity.Property(m => m.Id).HasMaxLength(127));
             modelBuilder.Entity<AppRole>(entity => entity.Property(m => m.Name).HasMaxLength(127));
+            modelBuilder.Entity<AppRole>(entity => entity.Property(m => m.NormalizedName).HasMaxLength(127));
             modelBuilder.Entity<IdentityUserLogin<int>>(entity => entity.Property(m => m.LoginProvider).HasMaxLength(127));
             modelBuilder.Entity<IdentityUserLogin<int>>(entity => entity.Property(m => m.ProviderKey).HasMaxLength(127));
             modelBuilder.Entity<AppUserRole>(entity => entity.Property(m => m.UserId).HasMaxLength(127));

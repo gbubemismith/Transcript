@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(TranscriptContext))]
-    [Migration("20210506232141_initial")]
+    [Migration("20210508211153_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,12 +31,12 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(256)
-                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127) CHARACTER SET utf8mb4");
 
                     b.Property<string>("NormalizedName")
-                        .HasMaxLength(256)
-                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127) CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
 

@@ -14,8 +14,8 @@ namespace Infrastructure.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", maxLength: 127, nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "varchar(256) CHARACTER SET utf8mb4", maxLength: 256, nullable: true),
-                    NormalizedName = table.Column<string>(type: "varchar(256) CHARACTER SET utf8mb4", maxLength: 256, nullable: true),
+                    Name = table.Column<string>(type: "varchar(127) CHARACTER SET utf8mb4", maxLength: 127, nullable: true),
+                    NormalizedName = table.Column<string>(type: "varchar(127) CHARACTER SET utf8mb4", maxLength: 127, nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true)
                 },
                 constraints: table =>

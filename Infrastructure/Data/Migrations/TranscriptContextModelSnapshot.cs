@@ -29,12 +29,12 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(256)
-                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127) CHARACTER SET utf8mb4");
 
                     b.Property<string>("NormalizedName")
-                        .HasMaxLength(256)
-                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4");
+                        .HasMaxLength(127)
+                        .HasColumnType("varchar(127) CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
 

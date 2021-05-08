@@ -30,6 +30,11 @@ namespace Infrastructure.Data
             modelBuilder.Entity<AppRole>(entity => entity.Property(m => m.Id).HasMaxLength(127));
             modelBuilder.Entity<AppRole>(entity => entity.Property(m => m.Name).HasMaxLength(127));
             modelBuilder.Entity<AppRole>(entity => entity.Property(m => m.NormalizedName).HasMaxLength(127));
+            modelBuilder.Entity<User>(entity => entity.Property(m => m.NormalizedUserName).HasMaxLength(127));
+            modelBuilder.Entity<User>(entity => entity.Property(m => m.UserName).HasMaxLength(127));
+            modelBuilder.Entity<User>(entity => entity.Property(m => m.FirstName).HasMaxLength(127));
+            modelBuilder.Entity<User>(entity => entity.Property(m => m.LastName).HasMaxLength(127));
+            modelBuilder.Entity<User>(entity => entity.Property(m => m.DisplayName).HasMaxLength(127));
             modelBuilder.Entity<IdentityUserLogin<int>>(entity => entity.Property(m => m.LoginProvider).HasMaxLength(127));
             modelBuilder.Entity<IdentityUserLogin<int>>(entity => entity.Property(m => m.ProviderKey).HasMaxLength(127));
             modelBuilder.Entity<AppUserRole>(entity => entity.Property(m => m.UserId).HasMaxLength(127));

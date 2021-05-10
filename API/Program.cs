@@ -35,6 +35,7 @@ namespace API
                 try
                 {
                     Console.WriteLine("In try 1");
+                    Console.WriteLine("Check::" + dbContext.GetService<IRelationalDatabaseCreator>().Exists());
                     //check if database schema exist
                     if (!(dbContext.GetService<IRelationalDatabaseCreator>().Exists()))
                     {

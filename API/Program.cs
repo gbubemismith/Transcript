@@ -23,8 +23,12 @@ namespace API
             var host = CreateHostBuilder(args).Build();
             // await CreateAndSeedDatabase(host);
 
+
+
             using (var scope = host.Services.CreateScope())
             {
+                Console.WriteLine("In program.cs");
+
                 var services = scope.ServiceProvider;
                 var loggerFactory = services.GetRequiredService<ILoggerFactory>();
                 var dbContext = services.GetRequiredService<TranscriptContext>();

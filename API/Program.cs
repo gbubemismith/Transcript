@@ -34,9 +34,11 @@ namespace API
                 var dbContext = services.GetRequiredService<TranscriptContext>();
                 try
                 {
+                    Console.WriteLine("In try 1");
                     //check if database schema exist
                     if (!(dbContext.GetService<IRelationalDatabaseCreator>().Exists()))
                     {
+                        Console.WriteLine("In try 2");
                         var userManager = services.GetRequiredService<UserManager<User>>();
                         var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
 
@@ -46,6 +48,7 @@ namespace API
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine(ex.Message);
                     var logger = loggerFactory.CreateLogger<Program>();
                     logger.LogError(ex, "An error occured during migration");
                 }

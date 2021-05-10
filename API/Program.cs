@@ -37,14 +37,14 @@ namespace API
                     Console.WriteLine("In try 1");
                     Console.WriteLine("Check::" + dbContext.GetService<IRelationalDatabaseCreator>().Exists());
                     //check if database schema exist
-                    if (!(dbContext.GetService<IRelationalDatabaseCreator>().Exists()))
-                    {
-                        Console.WriteLine("In try 2");
-                        var userManager = services.GetRequiredService<UserManager<User>>();
-                        var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
+                    // if (!(dbContext.GetService<IRelationalDatabaseCreator>().Exists()))
+                    // {
+                    Console.WriteLine("In try 2");
+                    var userManager = services.GetRequiredService<UserManager<User>>();
+                    var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
 
-                        await TranscriptContextSeed.SeedAsync(dbContext, userManager, roleManager, loggerFactory);
-                    }
+                    await TranscriptContextSeed.SeedAsync(dbContext, userManager, roleManager, loggerFactory);
+                    // }
 
                 }
                 catch (Exception ex)

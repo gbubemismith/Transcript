@@ -42,8 +42,6 @@ namespace API
                 if (env == "Development")
                 {
                     connStr = Configuration.GetConnectionString("TranscriptConnection");
-
-
                 }
                 else
                 {
@@ -64,13 +62,9 @@ namespace API
                     //server=localhost;Uid=gbubemi;Pwd=limited29;Database=IdentityDb
                     connStr = $"server={connHost};Uid={connUser};Pwd={connPass};Database={connDb};SslMode=none";
 
-
-
                 }
 
                 x.UseMySql(connStr, ServerVersion.AutoDetect(connStr));
-
-
             });
 
             services.AddApplicationServices();

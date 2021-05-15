@@ -6,4 +6,6 @@ namespace Core.Entities.Identity
         public const string SchoolUser = "SchoolUser";
         public const string User = "User";
     }
+
+
 }

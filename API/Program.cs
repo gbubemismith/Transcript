@@ -32,10 +32,8 @@ namespace API
                     //check if database schema exist
                     if (!(dbContext.GetService<IRelationalDatabaseCreator>().Exists()))
                     {
-                        Console.WriteLine("In try 2");
                         var userManager = services.GetRequiredService<UserManager<User>>();
                         var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
-
                         await TranscriptContextSeed.SeedAsync(dbContext, userManager, roleManager, loggerFactory);
                     }
 

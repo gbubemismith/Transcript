@@ -15,4 +15,6 @@ export class TranscriptRequestService {
   getSchools() : Observable<School[]> {
     return this.http.get<School[]>(this.baseUrl + 'schoolmanagement/getschools');
   }
+
+  
 }

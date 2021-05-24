@@ -1,13 +1,53 @@
 <div class="container">
+
+    <div class="py-3 text-center">
+        <!-- <h4>Kindly enter transcript request details</h4> -->
+    </div>
+
     <div class="row">
-        <div class="col">
-            first column
-        </div>
-        <div class="col">
-            second column
-        </div>
-        <div class="col">
-            third column
+        <div class="col-md-12">
+            <form >
+                <h5 class="mb-3">School Details</h5>
+                <hr class="mb-3">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="school">School</label>
+                        <select name="" class="custom-select d-block w-100" id="school">
+                            <option value="">Choose..</option>
+                            <option value="">Bowen University</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="faculty">Faculty</label>
+                        <select name="" class="custom-select d-block w-100" id="faculty">
+                            <option value="">Science and Science Education</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="department">Department</label>
+                        <select name="" class="custom-select d-block w-100" id="department">
+                            <option value="">Computer Science</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="matricNumber">Matriculation Number</label>
+                        <input type="text" class="form-control" id="matricNumber">
+                    </div>
+                </div>
+
+                <h5 class="mt-5 mb-3">Forwarding Details</h5>
+                <hr class="mb-2">
+                <div class="row">
+                    <div class="col">
+                        <label for="forwardingName">Forwarding Name</label>
+                        <input type="text" class="form-control" id="forwardingName">
+                    </div>
+                    <div class="col">
+                        <label for="forwardingAddress">Forwarding Address</label>
+                        <input type="text" class="form-control" id="forwardingAddress">
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
